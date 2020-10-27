@@ -4,6 +4,8 @@ using ModdersToolkit.Tools;
 using ReLogic.OS;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -58,13 +60,13 @@ namespace ModdersToolkit
 			if (!Main.dedServ) {
 				tools.ForEach(tool => tool.ClientInitialize());
 
-				UIElements.UICheckbox.checkboxTexture = GetTexture("UIElements/checkBox");
-				UIElements.UICheckbox.checkmarkTexture = GetTexture("UIElements/checkMark");
-				UIElements.UICheckbox2.checkboxTexture = GetTexture("UIElements/checkBox");
-				UIElements.UICheckbox2.checkmarkTexture = GetTexture("UIElements/checkMark");
-				UIElements.UITriStateCheckbox.checkboxTexture = GetTexture("UIElements/checkBox");
-				UIElements.UITriStateCheckbox.checkmarkTexture = GetTexture("UIElements/checkMark");
-				UIElements.UITriStateCheckbox.checkXTexture = GetTexture("UIElements/checkX");
+				UIElements.UICheckbox.checkboxTexture = GetTexture("UIElements/checkBox").Value;
+				UIElements.UICheckbox.checkmarkTexture = GetTexture("UIElements/checkMark").Value;
+				UIElements.UICheckbox2.checkboxTexture = GetTexture("UIElements/checkBox").Value;
+				UIElements.UICheckbox2.checkmarkTexture = GetTexture("UIElements/checkMark").Value;
+				UIElements.UITriStateCheckbox.checkboxTexture = GetTexture("UIElements/checkBox").Value;
+				UIElements.UITriStateCheckbox.checkmarkTexture = GetTexture("UIElements/checkMark").Value;
+				UIElements.UITriStateCheckbox.checkXTexture = GetTexture("UIElements/checkX").Value;
 			}
 		}
 
@@ -157,7 +159,7 @@ namespace ModdersToolkit
 			int yPosition = Main.screenHeight - 36 + 10 - 25;
 
 			// TODO, use UI/Settings_Toggle
-			Texture2D toggleTexture = visible ? Main.inventoryTickOnTexture : Main.inventoryTickOffTexture;
+			Texture2D toggleTexture = visible ? TextureAssets.InventoryTickOn.Value : TextureAssets.InventoryTickOff.Value;
 
 			Rectangle toggleToolkitButtonRectangle = new Rectangle(xPosition, yPosition, toggleTexture.Width, toggleTexture.Height);
 			bool toggleToolkitButtonHover = false;
@@ -166,7 +168,7 @@ namespace ModdersToolkit
 				toggleToolkitButtonHover = true;
 				if (Main.mouseLeft && Main.mouseLeftRelease) {
 					visible = !visible;
-					Main.PlaySound(visible ? SoundID.MenuOpen : SoundID.MenuClose);
+					SoundEngine.PlaySound(visible ? SoundID.MenuOpen : SoundID.MenuClose);
 
 					if (!visible) {
 						LastVisibleTool = null;
@@ -193,7 +195,7 @@ namespace ModdersToolkit
 			if (visible) {
 				yPosition -= 18;
 				foreach (var tool in tools) {
-					toggleTexture = tool.Visible ? Main.inventoryTickOnTexture : Main.inventoryTickOffTexture;
+					toggleTexture = tool.Visible ? TextureAssets.InventoryTickOn.Value : TextureAssets.InventoryTickOff.Value;
 
 					toggleToolkitButtonRectangle = new Rectangle(xPosition, yPosition, toggleTexture.Width, toggleTexture.Height);
 					toggleToolkitButtonHover = false;
@@ -208,7 +210,7 @@ namespace ModdersToolkit
 								}
 							}
 							tool.Visible = !tool.Visible;
-							Main.PlaySound(tool.Visible ? SoundID.MenuOpen : SoundID.MenuClose);
+							SoundEngine.PlaySound(tool.Visible ? SoundID.MenuOpen : SoundID.MenuClose);
 							tool.Toggled();
 						}
 					}

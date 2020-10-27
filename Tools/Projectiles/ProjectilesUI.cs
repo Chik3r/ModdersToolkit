@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ModdersToolkit.UIElements;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -208,7 +209,7 @@ namespace ModdersToolkit.Tools.Projectiles
 		private void ValidateInput() {
 			if (searchFilter.Text.Length > 0) {
 				bool found = false;
-				for (int i = 1; i < Main.projectileTexture.Length; i++) {
+				for (int i = 1; i < TextureAssets.Projectile.Length; i++) {
 					if (Lang.GetProjectileName(i).Value.ToLower().IndexOf(searchFilter.Text, StringComparison.OrdinalIgnoreCase) != -1) {
 						found = true;
 						break;
@@ -226,7 +227,7 @@ namespace ModdersToolkit.Tools.Projectiles
 			updateNeeded = false;
 
 			projectileGrid.Clear();
-			for (int i = 1; i < Main.projectileTexture.Length; i++) {
+			for (int i = 1; i < TextureAssets.Projectile.Length; i++) {
 				if (Lang.GetProjectileName(i).Value.ToLower().IndexOf(searchFilter.Text, StringComparison.OrdinalIgnoreCase) != -1) {
 					var box = new ProjectileSlot(i);
 					projectileGrid._items.Add(box);
@@ -256,7 +257,7 @@ namespace ModdersToolkit.Tools.Projectiles
 
 	internal class ProjectileSlot : UIElement
 	{
-		public static Texture2D backgroundTexture = Main.inventoryBack9Texture;
+		public static Texture2D backgroundTexture = TextureAssets.InventoryBack9.Value;
 		private float scale = .6f;
 		public int type;
 		public ProjectileSlot(int type) {
@@ -278,7 +279,7 @@ namespace ModdersToolkit.Tools.Projectiles
 			Rectangle rectangle = dimensions.ToRectangle();
 
 			int frames = Main.projFrames[type];
-			Texture2D texture = Main.projectileTexture[type];
+			Texture2D texture = TextureAssets.Projectile[type].Value;
 			int height = texture.Height / frames;
 			int width = texture.Width;
 			int frame = frameCounter % frames;

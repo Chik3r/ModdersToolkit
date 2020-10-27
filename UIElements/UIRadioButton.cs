@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Graphics;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ModdersToolkit.UIElements
@@ -40,7 +41,7 @@ namespace ModdersToolkit.UIElements
 
 		public UIRadioButton(string text, string tooltip, float textScale = 1, bool large = false) : base(text, textScale, large) {
 			this.tooltip = tooltip;
-			this._toggleTexture = TextureManager.Load("Images/UI/Settings_Toggle");
+			this._toggleTexture = Main.Assets.Request<Texture2D>("Images/UI/Settings_Toggle").Value;
 			text = "   " + text;
 			SetText(text);
 			Recalculate();

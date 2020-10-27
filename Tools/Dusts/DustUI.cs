@@ -5,6 +5,7 @@ using ReLogic.OS;
 using System;
 using System.Text;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Graphics.Shaders;
 using Terraria.UI;
@@ -267,7 +268,7 @@ namespace ModdersToolkit.Tools.Dusts
 				s.Append($"}}" + Environment.NewLine);
 			}
 
-			Platform.Current.Clipboard = s.ToString();
+			Platform.Get<IClipboard>().Value = s.ToString();
 
 			Main.NewText("Copied Dust spawning code to clipboard");
 		}
@@ -311,7 +312,7 @@ namespace ModdersToolkit.Tools.Dusts
 
 				Rectangle hitbox = new Rectangle((int)position.X, (int)position.Y, width, height);
 				hitbox.Offset((int)-Main.screenPosition.X, (int)-Main.screenPosition.Y);
-				Main.spriteBatch.Draw(Main.magicPixel, hitbox, Color.LightCyan * 0.6f);
+				Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, hitbox, Color.LightCyan * 0.6f);
 			}
 		}
 

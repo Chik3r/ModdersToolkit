@@ -107,7 +107,7 @@ namespace ModdersToolkit.REPL
 			openText.Left.Set(26 * 3, 0f);
 			keyboardPanel.Append(openText);
 
-			UIImageButton runText = new UIHoverImageButton(TextureManager.Load("Images/UI/ButtonPlay"), "Execute External Code");
+			UIImageButton runText = new UIHoverImageButton(Main.Assets.Request<Texture2D>("Images/UI/ButtonPlay"), "Execute External Code");
 			runText.OnClick += RunTextButton_OnClick;
 			runText.Top.Set(-26, 1f);
 			runText.Left.Set(26 * 4, 0f);

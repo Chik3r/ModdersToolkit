@@ -105,6 +105,11 @@ namespace ModdersToolkit.Tools.PlayerLayer
 
 	internal class PlayerLayerModPlayer : ModPlayer
 	{
+		public override void PreUpdate() {
+			base.PreUpdate();
+			PlayerHooks.GetDrawLayers(player);
+		}
+
 		public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers) {
 			// TODO
 		}

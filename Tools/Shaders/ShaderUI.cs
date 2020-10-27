@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ModdersToolkit.UIElements;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -289,10 +291,13 @@ float uRotation;
 float uTime;
 float4 uSourceRect;
 float2 uWorldPosition;
+float2 uTargetPosition;
 float uDirection;
 float3 uLightSource;
 float2 uImageSize0;
 float2 uImageSize1;
+float4 uLegacyArmorSourceRect;
+float2 uLegacyArmorSheetSize;
 
 float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
@@ -488,7 +493,7 @@ technique Technique1
 						// Need to replace Acid Dye shader and passname
 						var shader = GameShaders.Armor.GetShaderFromItemId(ItemID.AcidDye);
 						shaderRefField.SetValue(shader, newShaderRef);
-						FieldInfo passNameField = typeof(ArmorShaderData).GetField("_passName", BindingFlags.Instance | BindingFlags.NonPublic);
+						FieldInfo passNameField = typeof(ArmorShaderData).BaseType.GetField("_passName", BindingFlags.Instance | BindingFlags.NonPublic);
 						passNameField.SetValue(shader, "ModdersToolkitShaderPass");
 					}
 				}
@@ -634,8 +639,10 @@ technique Technique1
 			shaderList.Clear();
 			if (selectedMod != null && Directory.Exists(Path.Combine(ModSourcePath, selectedMod.Name))) {
 
-				FieldInfo effectsField = typeof(Mod).GetField("effects", BindingFlags.Instance | BindingFlags.NonPublic);
-				var loadedEffects = (Dictionary<string, Effect>)effectsField.GetValue(selectedMod);
+				//FieldInfo effectsField = typeof(Mod).GetField("effects", BindingFlags.Instance | BindingFlags.NonPublic);
+				IEnumerable<Asset<Effect>> effects = selectedMod.Assets.EnumerateLoadedAssets<Effect>();
+				//var loadedEffects = (Dictionary<string, Effect>)effectsField.GetValue(selectedMod);
+				var loadedEffects = effects.ToDictionary(x => x.Name.Split('.')[0], x => x.Value);
 
 				var fxFiles = Directory.EnumerateFiles(Path.Combine(ModSourcePath, selectedMod.Name), "*.fx", SearchOption.AllDirectories).Where(x => string.Equals(Path.GetExtension(x), ".fx", StringComparison.InvariantCultureIgnoreCase));
 				fxFiles = fxFiles.Select(x => Path.ChangeExtension(x.Substring(Path.Combine(ModSourcePath, selectedMod.Name).Length + 1), null).Replace("\\", "/"));
@@ -705,7 +712,7 @@ technique Technique1
 
 			if (Filters.Scene["ModdersToolkit:TestScreenShader"].IsInUse()) {
 				var destination = forceShaderCheckbox.GetDimensions();
-				Utils.DrawBorderStringFourWay(spriteBatch, Main.fontItemStack, $"uOpacity: {Filters.Scene["ModdersToolkit:TestScreenShader"].GetShader().CombinedOpacity:n2}", destination.X + 210, destination.Y + 2, Color.White, Color.Black, new Vector2(0.3f), 0.75f);
+				Utils.DrawBorderStringFourWay(spriteBatch, FontAssets.ItemStack.Value, $"uOpacity: {Filters.Scene["ModdersToolkit:TestScreenShader"].GetShader().CombinedOpacity:n2}", destination.X + 210, destination.Y + 2, Color.White, Color.Black, new Vector2(0.3f), 0.75f);
 			}
 		}
 	}

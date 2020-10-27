@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ModdersToolkit.Tools.Dusts;
 using ModdersToolkit.UIElements;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
@@ -97,7 +98,7 @@ namespace ModdersToolkit.Tools.UIPlayground
 
 			playgroundText = new UIText("Example UIText");
 			playgroundTextPanel = new UITextPanel<string>("Example UITextPanel");
-			playgroundImageButton = new UIImageButton(Main.inventoryBack10Texture);
+			playgroundImageButton = new UIImageButton(TextureAssets.InventoryBack10);
 
 			// checkboxes
 			int top = 0;
@@ -385,17 +386,17 @@ namespace ModdersToolkit.Tools.UIPlayground
 			if (UIPlaygroundTool.uiPlaygroundUI.drawInnerDimensionsCheckbox.Selected)
 				foreach (UIElement current in Elements) {
 					Rectangle hitbox = current.GetInnerDimensions().ToRectangle();
-					Main.spriteBatch.Draw(Main.magicPixel, hitbox, Color.Blue * 0.6f);
+					Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, hitbox, Color.Blue * 0.6f);
 				}
 			if (UIPlaygroundTool.uiPlaygroundUI.drawDimensionsCheckbox.Selected)
 				foreach (UIElement current in Elements) {
 					Rectangle hitbox = current.GetDimensions().ToRectangle();
-					Main.spriteBatch.Draw(Main.magicPixel, hitbox, Color.Pink * 0.6f);
+					Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, hitbox, Color.Pink * 0.6f);
 				}
 			if (UIPlaygroundTool.uiPlaygroundUI.drawOuterDimensionsCheckbox.Selected)
 				foreach (UIElement current in Elements) {
 					Rectangle hitbox = current.GetOuterDimensions().ToRectangle();
-					Main.spriteBatch.Draw(Main.magicPixel, hitbox, Color.Yellow * 0.6f);
+					Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, hitbox, Color.Yellow * 0.6f);
 				}
 		}
 	}

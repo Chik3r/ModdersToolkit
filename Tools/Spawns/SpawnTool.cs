@@ -204,31 +204,31 @@ namespace ModdersToolkit.Tools.Spawns
 						spawnRate = (int)((double)spawnRate * 0.4);
 						maxSpawns = (int)((float)maxSpawns * 1.1f);
 					}
-					if (Main.player[j].ZoneHoly && (double)Main.player[j].position.Y > Main.rockLayer * 16.0 + (double)NPC.sHeight) {
+					if (Main.player[j].ZoneHallow && (double)Main.player[j].position.Y > Main.rockLayer * 16.0 + (double)NPC.sHeight) {
 						spawnRate = (int)((double)spawnRate * 0.65);
 						maxSpawns = (int)((float)maxSpawns * 1.3f);
 					}
-					if (Main.wof >= 0 && Main.player[j].position.Y > (float)((Main.maxTilesY - 200) * 16)) {
+					if (Main.wofNPCIndex >= 0 && Main.player[j].position.Y > (float)((Main.maxTilesY - 200) * 16)) {
 						maxSpawns = (int)((float)maxSpawns * 0.3f);
 						spawnRate *= 3;
 					}
-					if ((double)Main.player[j].activeNPCs < (double)maxSpawns * 0.2) {
+					if ((double)Main.player[j].nearbyActiveNPCs < (double)maxSpawns * 0.2) {
 						spawnRate = (int)((float)spawnRate * 0.6f);
 					}
-					else if ((double)Main.player[j].activeNPCs < (double)maxSpawns * 0.4) {
+					else if ((double)Main.player[j].nearbyActiveNPCs < (double)maxSpawns * 0.4) {
 						spawnRate = (int)((float)spawnRate * 0.7f);
 					}
-					else if ((double)Main.player[j].activeNPCs < (double)maxSpawns * 0.6) {
+					else if ((double)Main.player[j].nearbyActiveNPCs < (double)maxSpawns * 0.6) {
 						spawnRate = (int)((float)spawnRate * 0.8f);
 					}
-					else if ((double)Main.player[j].activeNPCs < (double)maxSpawns * 0.8) {
+					else if ((double)Main.player[j].nearbyActiveNPCs < (double)maxSpawns * 0.8) {
 						spawnRate = (int)((float)spawnRate * 0.9f);
 					}
 					if ((double)(Main.player[j].position.Y / 16f) > (Main.worldSurface + Main.rockLayer) / 2.0 || Main.player[j].ZoneCorrupt || Main.player[j].ZoneCrimson) {
-						if ((double)Main.player[j].activeNPCs < (double)maxSpawns * 0.2) {
+						if ((double)Main.player[j].nearbyActiveNPCs < (double)maxSpawns * 0.2) {
 							spawnRate = (int)((float)spawnRate * 0.7f);
 						}
-						else if ((double)Main.player[j].activeNPCs < (double)maxSpawns * 0.4) {
+						else if ((double)Main.player[j].nearbyActiveNPCs < (double)maxSpawns * 0.4) {
 							spawnRate = (int)((float)spawnRate * 0.9f);
 						}
 					}
@@ -357,7 +357,7 @@ namespace ModdersToolkit.Tools.Spawns
 						flag2 = true;
 					}
 					bool flag14 = false;
-					//if (Main.player[j].active && !Main.player[j].dead && Main.player[j].activeNPCs < (float)maxSpawns && Main.rand.Next(spawnRate) == 0)
+					//if (Main.player[j].active && !Main.player[j].dead && Main.player[j].nearbyActiveNPCs < (float)maxSpawns && Main.rand.Next(spawnRate) == 0)
 					if (Main.player[j].active && !Main.player[j].dead) {
 						spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
 						spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
@@ -953,7 +953,7 @@ namespace ModdersToolkit.Tools.Spawns
 									list.Add(526);
 									list.Add(526);
 								}
-								if (Main.player[j].ZoneHoly) {
+								if (Main.player[j].ZoneHallow) {
 									list.Add(527);
 									list.Add(527);
 								}
@@ -1327,10 +1327,10 @@ namespace ModdersToolkit.Tools.Spawns
 								else {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 31, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-14, -1f);
+										Main.npc[num46].SetDefaults(-14, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(5) == 0) {
-										Main.npc[num46].SetDefaults(-13, -1f);
+										Main.npc[num46].SetDefaults(-13, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 							}
@@ -1988,7 +1988,7 @@ namespace ModdersToolkit.Tools.Spawns
 							else if (Main.rand.Next(2) == 0 && Main.player[j].ZoneCrimson && !NPC.AnyNPCs(474)) {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 474, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.rand.Next(2) == 0 && Main.player[j].ZoneHoly && !NPC.AnyNPCs(475)) {
+							else if (Main.rand.Next(2) == 0 && Main.player[j].ZoneHallow && !NPC.AnyNPCs(475)) {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 475, 0, 0f, 0f, 0f, 0f, 255);
 							}
 							else {
@@ -2010,7 +2010,7 @@ namespace ModdersToolkit.Tools.Spawns
 						else if (num45 == 60 && (double)num2 > Main.worldSurface && Main.rand.Next(60) == 0) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 219, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						else if ((double)num2 > Main.worldSurface && num2 < Main.maxTilesY - 210 && !Main.player[j].ZoneSnow && !Main.player[j].ZoneCrimson && !Main.player[j].ZoneCorrupt && !Main.player[j].ZoneJungle && !Main.player[j].ZoneHoly && Main.rand.Next(8) == 0) {
+						else if ((double)num2 > Main.worldSurface && num2 < Main.maxTilesY - 210 && !Main.player[j].ZoneSnow && !Main.player[j].ZoneCrimson && !Main.player[j].ZoneCorrupt && !Main.player[j].ZoneJungle && !Main.player[j].ZoneHallow && Main.rand.Next(8) == 0) {
 							if (Main.rand.Next(NPC.goldCritterChance) == 0) {
 								NewNPC(num * 16 + 8, num2 * 16, 448, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -2018,7 +2018,7 @@ namespace ModdersToolkit.Tools.Spawns
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 357, 0, 0f, 0f, 0f, 0f, 255);
 							}
 						}
-						else if ((double)num2 > Main.worldSurface && num2 < Main.maxTilesY - 210 && !Main.player[j].ZoneSnow && !Main.player[j].ZoneCrimson && !Main.player[j].ZoneCorrupt && !Main.player[j].ZoneJungle && !Main.player[j].ZoneHoly && Main.rand.Next(13) == 0) {
+						else if ((double)num2 > Main.worldSurface && num2 < Main.maxTilesY - 210 && !Main.player[j].ZoneSnow && !Main.player[j].ZoneCrimson && !Main.player[j].ZoneCorrupt && !Main.player[j].ZoneJungle && !Main.player[j].ZoneHallow && Main.rand.Next(13) == 0) {
 							if (Main.rand.Next(NPC.goldCritterChance) == 0) {
 								NewNPC(num * 16 + 8, num2 * 16, 447, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -2026,7 +2026,7 @@ namespace ModdersToolkit.Tools.Spawns
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 300, 0, 0f, 0f, 0f, 0f, 255);
 							}
 						}
-						else if ((double)num2 > Main.worldSurface && (double)num2 < (Main.rockLayer + (double)Main.maxTilesY) / 2.0 && !Main.player[j].ZoneSnow && !Main.player[j].ZoneCrimson && !Main.player[j].ZoneCorrupt && !Main.player[j].ZoneHoly && Main.rand.Next(13) == 0) {
+						else if ((double)num2 > Main.worldSurface && (double)num2 < (Main.rockLayer + (double)Main.maxTilesY) / 2.0 && !Main.player[j].ZoneSnow && !Main.player[j].ZoneCrimson && !Main.player[j].ZoneCorrupt && !Main.player[j].ZoneHallow && Main.rand.Next(13) == 0) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 359, 0, 0f, 0f, 0f, 0f, 255);
 						}
 						else if ((double)num2 < Main.worldSurface && Main.player[j].ZoneJungle && Main.rand.Next(9) == 0) {
@@ -2053,16 +2053,16 @@ namespace ModdersToolkit.Tools.Spawns
 							else if ((double)num2 > Main.worldSurface && Main.rand.Next(4) != 0) {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 176, 0, 0f, 0f, 0f, 0f, 255);
 								if (Main.rand.Next(10) == 0) {
-									Main.npc[num46].SetDefaults(-18, -1f);
+									Main.npc[num46].SetDefaults(-18, new NPCSpawnParams().WithScale(-1f));
 								}
 								if (Main.rand.Next(10) == 0) {
-									Main.npc[num46].SetDefaults(-19, -1f);
+									Main.npc[num46].SetDefaults(-19, new NPCSpawnParams().WithScale(-1f));
 								}
 								if (Main.rand.Next(10) == 0) {
-									Main.npc[num46].SetDefaults(-20, -1f);
+									Main.npc[num46].SetDefaults(-20, new NPCSpawnParams().WithScale(-1f));
 								}
 								if (Main.rand.Next(10) == 0) {
-									Main.npc[num46].SetDefaults(-21, -1f);
+									Main.npc[num46].SetDefaults(-21, new NPCSpawnParams().WithScale(-1f));
 								}
 							}
 							else if (Main.rand.Next(3) == 0) {
@@ -2098,55 +2098,55 @@ namespace ModdersToolkit.Tools.Spawns
 								if (num74 == 0) {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 231, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-56, -1f);
+										Main.npc[num46].SetDefaults(-56, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-57, -1f);
+										Main.npc[num46].SetDefaults(-57, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 								else if (num74 == 1) {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 232, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-58, -1f);
+										Main.npc[num46].SetDefaults(-58, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-59, -1f);
+										Main.npc[num46].SetDefaults(-59, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 								else if (num74 == 2) {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 233, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-60, -1f);
+										Main.npc[num46].SetDefaults(-60, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-61, -1f);
+										Main.npc[num46].SetDefaults(-61, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 								else if (num74 == 3) {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 234, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-62, -1f);
+										Main.npc[num46].SetDefaults(-62, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-63, -1f);
+										Main.npc[num46].SetDefaults(-63, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 								else if (num74 == 4) {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 235, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-64, -1f);
+										Main.npc[num46].SetDefaults(-64, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-65, -1f);
+										Main.npc[num46].SetDefaults(-65, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 								else {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 42, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-16, -1f);
+										Main.npc[num46].SetDefaults(-16, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-17, -1f);
+										Main.npc[num46].SetDefaults(-17, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 							}
@@ -2246,10 +2246,10 @@ namespace ModdersToolkit.Tools.Spawns
 							else if (Main.hardMode && Main.rand.Next(3) == 0) {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 183, 0, 0f, 0f, 0f, 0f, 255);
 								if (Main.rand.Next(3) == 0) {
-									Main.npc[num46].SetDefaults(-24, -1f);
+									Main.npc[num46].SetDefaults(-24, new NPCSpawnParams().WithScale(-1f));
 								}
 								else if (Main.rand.Next(3) == 0) {
-									Main.npc[num46].SetDefaults(-25, -1f);
+									Main.npc[num46].SetDefaults(-25, new NPCSpawnParams().WithScale(-1f));
 								}
 							}
 							else if (Main.hardMode && (double)num2 >= Main.rockLayer && Main.rand.Next(40) == 0 && !flag3) {
@@ -2267,10 +2267,10 @@ namespace ModdersToolkit.Tools.Spawns
 							else {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 173, 0, 0f, 0f, 0f, 0f, 255);
 								if (Main.rand.Next(3) == 0) {
-									Main.npc[num46].SetDefaults(-22, -1f);
+									Main.npc[num46].SetDefaults(-22, new NPCSpawnParams().WithScale(-1f));
 								}
 								else if (Main.rand.Next(3) == 0) {
-									Main.npc[num46].SetDefaults(-23, -1f);
+									Main.npc[num46].SetDefaults(-23, new NPCSpawnParams().WithScale(-1f));
 								}
 							}
 						}
@@ -2298,10 +2298,10 @@ namespace ModdersToolkit.Tools.Spawns
 							else {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 6, 0, 0f, 0f, 0f, 0f, 255);
 								if (Main.rand.Next(3) == 0) {
-									Main.npc[num46].SetDefaults(-11, -1f);
+									Main.npc[num46].SetDefaults(-11, new NPCSpawnParams().WithScale(-1f));
 								}
 								else if (Main.rand.Next(3) == 0) {
-									Main.npc[num46].SetDefaults(-12, -1f);
+									Main.npc[num46].SetDefaults(-12, new NPCSpawnParams().WithScale(-1f));
 								}
 							}
 						}
@@ -2316,7 +2316,7 @@ namespace ModdersToolkit.Tools.Spawns
 							if (Main.player[j].ZoneSnow && Main.hardMode && Main.cloudAlpha > 0f && !NPC.AnyNPCs(243) && Main.rand.Next(20) == 0) {
 								NewNPC(num * 16 + 8, num2 * 16, 243, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.player[j].ZoneHoly && Main.hardMode && Main.cloudAlpha > 0f && !NPC.AnyNPCs(244) && Main.rand.Next(20) == 0) {
+							else if (Main.player[j].ZoneHallow && Main.hardMode && Main.cloudAlpha > 0f && !NPC.AnyNPCs(244) && Main.rand.Next(20) == 0) {
 								NewNPC(num * 16 + 8, num2 * 16, 244, 0, 0f, 0f, 0f, 0f, 255);
 							}
 							else if (!Main.player[j].ZoneSnow && Main.hardMode && Main.cloudAlpha > 0f && NPC.CountNPCS(250) < 2 && Main.rand.Next(10) == 0) {
@@ -2433,22 +2433,22 @@ namespace ModdersToolkit.Tools.Spawns
 								else {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 1, 0, 0f, 0f, 0f, 0f, 255);
 									if (num45 == 60) {
-										Main.npc[num46].SetDefaults(-10, -1f);
+										Main.npc[num46].SetDefaults(-10, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (num45 == 161 || num45 == 147) {
-										Main.npc[num46].SetDefaults(147, -1f);
+										Main.npc[num46].SetDefaults(147, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.halloween && Main.rand.Next(3) != 0) {
-										Main.npc[num46].SetDefaults(302, -1f);
+										Main.npc[num46].SetDefaults(302, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.xMas && Main.rand.Next(3) != 0) {
-										Main.npc[num46].SetDefaults(Main.rand.Next(333, 337), -1f);
+										Main.npc[num46].SetDefaults(Main.rand.Next(333, 337), new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(3) == 0 || (num76 < 200 && !Main.expertMode)) {
-										Main.npc[num46].SetDefaults(-3, -1f);
+										Main.npc[num46].SetDefaults(-3, new NPCSpawnParams().WithScale(-1f));
 									}
 									else if (Main.rand.Next(10) == 0 && (num76 > 400 || Main.expertMode)) {
-										Main.npc[num46].SetDefaults(-7, -1f);
+										Main.npc[num46].SetDefaults(-7, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 							}
@@ -2484,7 +2484,7 @@ namespace ModdersToolkit.Tools.Spawns
 								else if (Main.rand.Next(2) == 0) {
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 2, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(4) == 0) {
-										Main.npc[num46].SetDefaults(-43, -1f);
+										Main.npc[num46].SetDefaults(-43, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 								else {
@@ -2492,31 +2492,31 @@ namespace ModdersToolkit.Tools.Spawns
 									if (num80 == 0) {
 										num46 = NewNPC(num * 16 + 8, num2 * 16, 190, 0, 0f, 0f, 0f, 0f, 255);
 										if (Main.rand.Next(3) == 0) {
-											Main.npc[num46].SetDefaults(-38, -1f);
+											Main.npc[num46].SetDefaults(-38, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 									else if (num80 == 1) {
 										num46 = NewNPC(num * 16 + 8, num2 * 16, 191, 0, 0f, 0f, 0f, 0f, 255);
 										if (Main.rand.Next(3) == 0) {
-											Main.npc[num46].SetDefaults(-39, -1f);
+											Main.npc[num46].SetDefaults(-39, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 									else if (num80 == 2) {
 										num46 = NewNPC(num * 16 + 8, num2 * 16, 192, 0, 0f, 0f, 0f, 0f, 255);
 										if (Main.rand.Next(3) == 0) {
-											Main.npc[num46].SetDefaults(-40, -1f);
+											Main.npc[num46].SetDefaults(-40, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 									else if (num80 == 3) {
 										num46 = NewNPC(num * 16 + 8, num2 * 16, 193, 0, 0f, 0f, 0f, 0f, 255);
 										if (Main.rand.Next(3) == 0) {
-											Main.npc[num46].SetDefaults(-41, -1f);
+											Main.npc[num46].SetDefaults(-41, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 									else if (num80 == 4) {
 										num46 = NewNPC(num * 16 + 8, num2 * 16, 194, 0, 0f, 0f, 0f, 0f, 255);
 										if (Main.rand.Next(3) == 0) {
-											Main.npc[num46].SetDefaults(-42, -1f);
+											Main.npc[num46].SetDefaults(-42, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2562,10 +2562,10 @@ namespace ModdersToolkit.Tools.Spawns
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 223, 0, 0f, 0f, 0f, 0f, 255);
 								if (Main.rand.Next(3) == 0) {
 									if (Main.rand.Next(2) == 0) {
-										Main.npc[num46].SetDefaults(-54, -1f);
+										Main.npc[num46].SetDefaults(-54, new NPCSpawnParams().WithScale(-1f));
 									}
 									else {
-										Main.npc[num46].SetDefaults(-55, -1f);
+										Main.npc[num46].SetDefaults(-55, new NPCSpawnParams().WithScale(-1f));
 									}
 								}
 							}
@@ -2599,10 +2599,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 3, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-26, -1f);
+											Main.npc[num46].SetDefaults(-26, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-27, -1f);
+											Main.npc[num46].SetDefaults(-27, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2610,10 +2610,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 132, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-28, -1f);
+											Main.npc[num46].SetDefaults(-28, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-29, -1f);
+											Main.npc[num46].SetDefaults(-29, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2621,10 +2621,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 186, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-30, -1f);
+											Main.npc[num46].SetDefaults(-30, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-31, -1f);
+											Main.npc[num46].SetDefaults(-31, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2632,10 +2632,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 187, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-32, -1f);
+											Main.npc[num46].SetDefaults(-32, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-33, -1f);
+											Main.npc[num46].SetDefaults(-33, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2643,10 +2643,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 188, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-34, -1f);
+											Main.npc[num46].SetDefaults(-34, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-35, -1f);
+											Main.npc[num46].SetDefaults(-35, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2654,10 +2654,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 189, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-36, -1f);
+											Main.npc[num46].SetDefaults(-36, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-37, -1f);
+											Main.npc[num46].SetDefaults(-37, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2665,10 +2665,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 200, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-44, -1f);
+											Main.npc[num46].SetDefaults(-44, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-45, -1f);
+											Main.npc[num46].SetDefaults(-45, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2698,13 +2698,13 @@ namespace ModdersToolkit.Tools.Spawns
 							else {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 1, 0, 0f, 0f, 0f, 0f, 255);
 								if (Main.rand.Next(5) == 0) {
-									Main.npc[num46].SetDefaults(-9, -1f);
+									Main.npc[num46].SetDefaults(-9, new NPCSpawnParams().WithScale(-1f));
 								}
 								else if (Main.rand.Next(2) == 0) {
-									Main.npc[num46].SetDefaults(1, -1f);
+									Main.npc[num46].SetDefaults(1, new NPCSpawnParams().WithScale(-1f));
 								}
 								else {
-									Main.npc[num46].SetDefaults(-8, -1f);
+									Main.npc[num46].SetDefaults(-8, new NPCSpawnParams().WithScale(-1f));
 								}
 							}
 						}
@@ -2753,7 +2753,7 @@ namespace ModdersToolkit.Tools.Spawns
 						else if ((num3 == 147 || num3 == 161 || num3 == 162 || num3 == 163 || num3 == 164) && !flag3 && Main.hardMode && Main.player[j].ZoneCorrupt && Main.rand.Next(30) == 0) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 170, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						else if ((num3 == 147 || num3 == 161 || num3 == 162 || num3 == 163 || num3 == 164) && !flag3 && Main.hardMode && Main.player[j].ZoneHoly && Main.rand.Next(30) == 0) {
+						else if ((num3 == 147 || num3 == 161 || num3 == 162 || num3 == 163 || num3 == 164) && !flag3 && Main.hardMode && Main.player[j].ZoneHallow && Main.rand.Next(30) == 0) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 171, 0, 0f, 0f, 0f, 0f, 255);
 						}
 						else if ((num3 == 147 || num3 == 161 || num3 == 162 || num3 == 163 || num3 == 164) && !flag3 && Main.hardMode && Main.player[j].ZoneCrimson && Main.rand.Next(30) == 0) {
@@ -2762,7 +2762,7 @@ namespace ModdersToolkit.Tools.Spawns
 						else if (Main.hardMode && Main.player[j].ZoneSnow && Main.rand.Next(10) == 0) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 154, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						else if (!flag3 && Main.rand.Next(100) == 0 && !Main.player[j].ZoneHoly) {
+						else if (!flag3 && Main.rand.Next(100) == 0 && !Main.player[j].ZoneHallow) {
 							if (Main.hardMode) {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 95, 1, 0f, 0f, 0f, 0f, 255);
 							}
@@ -2778,7 +2778,7 @@ namespace ModdersToolkit.Tools.Spawns
 						}
 						else if (!Main.hardMode && Main.rand.Next(10) == 0) {
 							if (Main.player[j].ZoneSnow) {
-								Main.npc[num46].SetDefaults(184, -1f);
+								Main.npc[num46].SetDefaults(184, new NPCSpawnParams().WithScale(-1f));
 							}
 							else {
 								num46 = NewNPC(num * 16 + 8, num2 * 16, 16, 0, 0f, 0f, 0f, 0f, 255);
@@ -2787,13 +2787,13 @@ namespace ModdersToolkit.Tools.Spawns
 						else if (!Main.hardMode && Main.rand.Next(4) == 0) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 1, 0, 0f, 0f, 0f, 0f, 255);
 							if (Main.player[j].ZoneJungle) {
-								Main.npc[num46].SetDefaults(-10, -1f);
+								Main.npc[num46].SetDefaults(-10, new NPCSpawnParams().WithScale(-1f));
 							}
 							else if (Main.player[j].ZoneSnow) {
-								Main.npc[num46].SetDefaults(184, -1f);
+								Main.npc[num46].SetDefaults(184, new NPCSpawnParams().WithScale(-1f));
 							}
 							else {
-								Main.npc[num46].SetDefaults(-6, -1f);
+								Main.npc[num46].SetDefaults(-6, new NPCSpawnParams().WithScale(-1f));
 							}
 						}
 						else if (Main.rand.Next(2) == 0) {
@@ -2836,7 +2836,7 @@ namespace ModdersToolkit.Tools.Spawns
 									else {
 										num46 = NewNPC(num * 16 + 8, num2 * 16, 77, 0, 0f, 0f, 0f, 0f, 255);
 										if ((double)num2 > (Main.rockLayer + (double)Main.maxTilesY) / 2.0 && Main.rand.Next(5) == 0) {
-											Main.npc[num46].SetDefaults(-15, -1f);
+											Main.npc[num46].SetDefaults(-15, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2883,10 +2883,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 21, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-47, -1f);
+											Main.npc[num46].SetDefaults(-47, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-46, -1f);
+											Main.npc[num46].SetDefaults(-46, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2894,10 +2894,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 201, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-49, -1f);
+											Main.npc[num46].SetDefaults(-49, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-48, -1f);
+											Main.npc[num46].SetDefaults(-48, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2905,10 +2905,10 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 202, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-51, -1f);
+											Main.npc[num46].SetDefaults(-51, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-50, -1f);
+											Main.npc[num46].SetDefaults(-50, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
@@ -2916,22 +2916,22 @@ namespace ModdersToolkit.Tools.Spawns
 									num46 = NewNPC(num * 16 + 8, num2 * 16, 203, 0, 0f, 0f, 0f, 0f, 255);
 									if (Main.rand.Next(3) == 0) {
 										if (Main.rand.Next(2) == 0) {
-											Main.npc[num46].SetDefaults(-53, -1f);
+											Main.npc[num46].SetDefaults(-53, new NPCSpawnParams().WithScale(-1f));
 										}
 										else {
-											Main.npc[num46].SetDefaults(-52, -1f);
+											Main.npc[num46].SetDefaults(-52, new NPCSpawnParams().WithScale(-1f));
 										}
 									}
 								}
 							}
 						}
-						else if (Main.hardMode && (Main.player[j].ZoneHoly & Main.rand.Next(2) == 0)) {
+						else if (Main.hardMode && (Main.player[j].ZoneHallow & Main.rand.Next(2) == 0)) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 138, 0, 0f, 0f, 0f, 0f, 255);
 						}
 						else if (Main.player[j].ZoneJungle) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 51, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						else if (Main.hardMode && Main.player[j].ZoneHoly) {
+						else if (Main.hardMode && Main.player[j].ZoneHallow) {
 							num46 = NewNPC(num * 16 + 8, num2 * 16, 137, 0, 0f, 0f, 0f, 0f, 255);
 						}
 						else if (Main.hardMode && Main.rand.Next(6) > 0) {
@@ -2954,7 +2954,7 @@ namespace ModdersToolkit.Tools.Spawns
 							//num46 = NPCLoader.SpawnNPC(spawn, num, num2);
 						}
 						if (Main.npc[num46].type == 1 && Main.rand.Next(180) == 0) {
-							Main.npc[num46].SetDefaults(-4, -1f);
+							Main.npc[num46].SetDefaults(-4, new NPCSpawnParams().WithScale(-1f));
 						}
 						if (Main.netMode == 2 && num46 < 200) {
 							//NetMessage.SendData(23, -1, -1, "", num46, 0f, 0f, 0f, 0, 0, 0);

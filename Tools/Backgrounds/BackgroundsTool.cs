@@ -47,7 +47,7 @@ namespace ModdersToolkit.Tools.Backgrounds
 				style = choice;
 
 			if (BackgroundsTool.UI.quickChangeCheckbox.Selected)
-				Main.quickBG = 10;
+				Main.instantBGTransitionCounter = 10;
 		}
 
 		public override void ChooseUgBgStyle(ref int style) {
@@ -60,7 +60,7 @@ namespace ModdersToolkit.Tools.Backgrounds
 				style = choice;
 
 			if (BackgroundsTool.UI.quickChangeCheckbox.Selected)
-				Main.quickBG = 10;
+				Main.instantBGTransitionCounter = 10;
 		}
 
 		public override void FillUgTextureArray(int style, int[] textureSlots) {

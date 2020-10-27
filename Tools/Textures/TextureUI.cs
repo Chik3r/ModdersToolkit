@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ModdersToolkit.UIElements;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -316,18 +317,18 @@ namespace ModdersToolkit.Tools.Textures
 
 			if (selectedMod != null) {
 				textureList.Clear();
-				FieldInfo texturesField = typeof(Mod).GetField("textures", BindingFlags.Instance | BindingFlags.NonPublic);
-				var textures = (Dictionary<string, Texture2D>)texturesField.GetValue(selectedMod);
+
+				IEnumerable<Asset<Texture2D>> textures = selectedMod.Assets.EnumerateLoadedAssets<Texture2D>();
 				foreach (var textureEntry in textures) {
 					if (searchFilter.Text.Length > 0) {
-						if (textureEntry.Key.ToLower().IndexOf(searchFilter.Text, StringComparison.OrdinalIgnoreCase) == -1)
+						if (textureEntry.Name.ToLower().IndexOf(searchFilter.Text, StringComparison.OrdinalIgnoreCase) == -1)
 							continue;
 					}
-					UIImage image = new UIHoverImage(textureEntry.Value, textureEntry.Key);
+					UIImage image = new UIHoverImage(textureEntry, textureEntry.Name.Split('.')[0]);
 					//image.ImageScale = Math.Min(1f, 60f/textureEntry.Value.Height);
 					image.OnClick += (a, b) => {
 						selectedTexture2D = textureEntry.Value;
-						currentTexture.SetText("Current: " + textureEntry.Key);
+						currentTexture.SetText("Current: " + textureEntry.Name.Split('.')[0]);
 						SelectedTexture2DChanged();
 					};
 					textureList.Add(image);
