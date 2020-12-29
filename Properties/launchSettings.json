@@ -3,6 +3,7 @@
     "Terraria": {
       "commandName": "Executable",
       "executablePath": "$(tMLPath)",
+      "commandLineArgs": "-eac \"$(TargetPath)\"",
       "workingDirectory": "$(TerrariaSteamPath)"
     },
     "TerrariaServer": {

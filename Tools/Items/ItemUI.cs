@@ -6,6 +6,7 @@ using System.Reflection;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -124,7 +125,7 @@ namespace ModdersToolkit.Tools.Items
 			//data.DataSetter = (value) => Main.LocalPlayer.HeldItem.height = value;
 			//uiRanges.Add(new UIRange<int>(data));
 
-			var data = new UIIntRangedDataValue("UseStyle:", 0, 0, 5);
+			var data = new UIIntRangedDataValue("UseStyle:", 0, 0, 6);
 			data.DataGetter = () => Main.LocalPlayer.HeldItem.useStyle;
 			data.DataSetter = (value) => Main.LocalPlayer.HeldItem.useStyle = value;
 			uiRanges.Add(new UIRange<int>(data));

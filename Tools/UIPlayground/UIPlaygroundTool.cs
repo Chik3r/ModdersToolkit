@@ -30,6 +30,7 @@ namespace ModdersToolkit.Tools.UIPlayground
 		}
 
 		public override void ClientTerminate() {
+			On.Terraria.UI.UIElement.Draw -= UIElement_Draw;
 			Interface = null;
 
 			uiPlaygroundUI?.Deactivate();

@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using ModdersToolkit.UIElements;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -15,7 +17,7 @@ namespace ModdersToolkit.Tools.PlayerLayer
 		private UserInterface _userInterface;
 
 		public UIList playerLayerList;
-		public List<Terraria.ModLoader.PlayerLayer> playerLayers = new List<Terraria.ModLoader.PlayerLayer>();
+		public List<PlayerDrawLayer> playerLayers = new List<PlayerDrawLayer>();
 		public List<UICheckbox> playerLayersCheckboxes = new List<UICheckbox>();
 		public bool updateNeeded;
 
@@ -69,7 +71,7 @@ namespace ModdersToolkit.Tools.PlayerLayer
 			playerLayersCheckboxes.Clear();
 			int order = 0;
 			foreach (var item in playerLayers) {
-				var box = new UICheckbox(item.Name, item.mod);
+				var box = new UICheckbox(item.Name, item.Mod == null ? "Terraria" : item.Mod.DisplayName);
 				box.order = order++;
 				box.Selected = true;
 				playerLayersCheckboxes.Add(box);
@@ -89,7 +91,7 @@ namespace ModdersToolkit.Tools.PlayerLayer
 			}
 		}
 
-		internal void InformLayers(List<Terraria.ModLoader.PlayerLayer> layers) {
+		internal void InformLayers(List<PlayerDrawLayer> layers) {
 			foreach (var layer in layers) {
 				if (!PlayerLayerTool.playerLayerUI.playerLayers.Contains(layer)) {
 					updateNeeded = true;
@@ -105,34 +107,33 @@ namespace ModdersToolkit.Tools.PlayerLayer
 
 	internal class PlayerLayerModPlayer : ModPlayer
 	{
-		public override void PreUpdate() {
-			base.PreUpdate();
-			PlayerHooks.GetDrawLayers(player);
-		}
+		//public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers) {
+		//	// TODO
+		//}
 
-		public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers) {
-			// TODO
-		}
+		public override void HideDrawLayers(PlayerDrawSet drawInfo) {
+			var layers = PlayerDrawLayerHooks.Layers;
+			//var layers = PlayerDrawLayerHooks.GetDrawLayers(drawInfo);
 
-		public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerLayer> layers) {
-			PlayerLayerTool.playerLayerUI.InformLayers(layers);
+			PlayerLayerTool.playerLayerUI.InformLayers(layers.ToList());
 
 			if (PlayerLayerTool.playerLayerUI.updateNeeded)
 				return;
 
-			foreach (var layer in layers) {
+			foreach (PlayerDrawLayer layer in layers) {
 				if (PlayerLayerTool.playerLayerUI.playerLayers.Contains(layer)) {
 					var layerIndex = PlayerLayerTool.playerLayerUI.playerLayers.IndexOf(layer);
-					layer.visible = PlayerLayerTool.playerLayerUI.playerLayersCheckboxes[layerIndex].Selected;
-				}
-				else {
+					var selected = PlayerLayerTool.playerLayerUI.playerLayersCheckboxes[layerIndex].Selected;
+
+					if (!selected)
+						layer.Hide();
 				}
 			}
 		}
 
 		// Maybe a separate tool or panel/tab	
-		public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo) {
-			// TODO
-		}
+		//public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo) {
+		//	// TODO
+		//}
 	}
 }

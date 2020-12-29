@@ -186,9 +186,6 @@ namespace ModdersToolkit.REPL
 				: text.Substring(start, length);
 		}
 
-		public override Encoding Encoding {
-			get { return System.Text.Encoding.UTF8; }
-		}
+		public override Encoding Encoding => System.Text.Encoding.UTF8; 
 	}
-
 }

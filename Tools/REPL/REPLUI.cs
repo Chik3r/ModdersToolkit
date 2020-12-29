@@ -74,7 +74,7 @@ namespace ModdersToolkit.REPL
 
 			replOutput.SetScrollbar(keyboardScrollbar);
 
-			UIImageButton clearButton = new UIHoverImageButton(ModContent.GetTexture("Terraria/UI/ButtonDelete"), "Clear REPL");
+			UIImageButton clearButton = new UIHoverImageButton(ModContent.GetTexture("Terraria/Images/UI/ButtonDelete"), "Clear REPL");
 			clearButton.OnClick += (a, b) => {
 				pendingClear = true;
 				codeTextBox.SetText("");
@@ -83,7 +83,7 @@ namespace ModdersToolkit.REPL
 			clearButton.Left.Set(26 * 0, 0f);
 			keyboardPanel.Append(clearButton);
 
-			UIImageButton resetButton = new UIHoverImageButton(ModContent.GetTexture("Terraria/UI/ButtonDelete"), "Reset REPL");
+			UIImageButton resetButton = new UIHoverImageButton(ModContent.GetTexture("Terraria/Images/UI/ButtonDelete"), "Reset REPL");
 			resetButton.OnClick += (a, b) => {
 				pendingClear = true;
 				codeTextBox.SetText("");
