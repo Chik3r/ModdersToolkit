@@ -70,7 +70,7 @@ namespace ModdersToolkit.Tools.Spawns
 			Main.spriteBatch.Draw(npcTexture, drawPosition, npcDrawRectangle, color, 0, Vector2.Zero, drawScale, SpriteEffects.None, 0);
 
 			if (IsMouseHovering) {
-				Main.hoverItemName = Lang.GetNPCNameValue(npc.type) + (npc.modNPC != null ? " [" + npc.modNPC.Mod.Name + "]" : "");
+				Main.hoverItemName = Lang.GetNPCNameValue(npc.type) + (npc.ModNPC != null ? " [" + npc.ModNPC.Mod.Name + "]" : "");
 			}
 		}
 

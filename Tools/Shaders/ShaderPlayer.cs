@@ -8,7 +8,7 @@ namespace ModdersToolkit.Tools.Shaders
 		public override void UpdateBiomeVisuals() {
 			if (Platform.IsWindows) {
 				bool forcedShaderActive = ShaderTool.shaderUI.forceShaderCheckbox.Selected && ShaderTool.shaderUI.lastShaderIsScreenShader;
-				player.ManageSpecialBiomeVisuals("ModdersToolkit:TestScreenShader", forcedShaderActive);
+				Player.ManageSpecialBiomeVisuals("ModdersToolkit:TestScreenShader", forcedShaderActive);
 			}
 		}
 	}

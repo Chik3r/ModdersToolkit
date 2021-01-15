@@ -325,10 +325,10 @@ namespace ModdersToolkit.Tools.Projectiles
 			if (ProjectilesUI.aiStyleDataProperty.Data != -1) {
 				p.aiStyle = ProjectilesUI.aiStyleDataProperty.Data;
 			}
-			if (p.modProjectile != null) {
-				p.modProjectile.drawOffsetX = ProjectilesUI.drawOffsetXDataProperty.Data;
-				p.modProjectile.drawOriginOffsetX = ProjectilesUI.drawOriginOffsetXDataProperty.Data;
-				p.modProjectile.drawOriginOffsetY = ProjectilesUI.drawOriginOffsetYDataProperty.Data;
+			if (p.ModProjectile != null) {
+				p.ModProjectile.drawOffsetX = ProjectilesUI.drawOffsetXDataProperty.Data;
+				p.ModProjectile.drawOriginOffsetX = ProjectilesUI.drawOriginOffsetXDataProperty.Data;
+				p.ModProjectile.drawOriginOffsetY = ProjectilesUI.drawOriginOffsetYDataProperty.Data;
 			}
 
 			// support for aitype??

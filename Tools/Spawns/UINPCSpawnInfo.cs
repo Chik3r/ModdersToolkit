@@ -27,7 +27,7 @@ namespace ModdersToolkit.Tools.Spawns
 			npcSlot = new UINPCSlot(npc);
 			Append(npcSlot);
 
-			string name = Lang.GetNPCNameValue(npc.type) + (npc.modNPC != null ? " [" + npc.modNPC.Mod.Name + "]" : "");
+			string name = Lang.GetNPCNameValue(npc.type) + (npc.ModNPC != null ? " [" + npc.ModNPC.Mod.Name + "]" : "");
 
 			information = new UIText(name, 0.8f);
 			information.Top.Pixels = 1;

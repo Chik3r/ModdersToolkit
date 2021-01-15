@@ -27,7 +27,7 @@ namespace ModdersToolkit.Tools.Loot
 			itemSlot = new UIItemSlot(item);
 			Append(itemSlot);
 
-			string name = item.Name + (item.modItem != null ? " [" + item.modItem.Mod.Name + "]" : "");
+			string name = item.Name + (item.ModItem != null ? " [" + item.ModItem.Mod.Name + "]" : "");
 
 			information = new UIText(name, 0.8f);
 			information.Top.Pixels = 1;
