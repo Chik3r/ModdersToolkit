@@ -408,7 +408,7 @@ namespace ModdersToolkit.Tools.Spawns
 						while (l < 50) {
 							int num17 = Main.rand.Next(num9, num10);
 							int num18 = Main.rand.Next(num11, num12);
-							if (Main.tile[num17, num18].nactive() && Main.tileSolid[(int)Main.tile[num17, num18].type]) {
+							if ((Main.tile[num17, num18].IsActive && !Main.tile[num17, num18].IsActuated) && Main.tileSolid[(int)Main.tile[num17, num18].type]) {
 								goto IL_1540;
 							}
 							if (!Main.wallHouse[(int)Main.tile[num17, num18].wall]) {
@@ -429,7 +429,7 @@ namespace ModdersToolkit.Tools.Spawns
 								else {
 									int m = num18;
 									while (m < Main.maxTilesY) {
-										if (Main.tile[num17, m].nactive() && Main.tileSolid[(int)Main.tile[num17, m].type]) {
+										if ((Main.tile[num17, num18].IsActive && !Main.tile[num17, num18].IsActuated) && Main.tileSolid[(int)Main.tile[num17, m].type]) {
 											if (num17 < num13 || num17 > num14 || m < num15 || m > num16) {
 												num3 = (int)Main.tile[num17, m].type;
 												num = num17;
@@ -466,11 +466,11 @@ namespace ModdersToolkit.Tools.Spawns
 								if (flag13) {
 									for (int n = num19; n < num20; n++) {
 										for (int num23 = num21; num23 < num22; num23++) {
-											if (Main.tile[n, num23].nactive() && Main.tileSolid[(int)Main.tile[n, num23].type]) {
+											if ((Main.tile[n, num23].IsActive && !Main.tile[n, num23].IsActuated) && Main.tileSolid[(int)Main.tile[n, num23].type]) {
 												flag13 = false;
 												break;
 											}
-											if (Main.tile[n, num23].lava()) {
+											if (Main.tile[n, num23].LiquidType == LiquidID.Lava) {
 												flag13 = false;
 												break;
 											}
@@ -510,9 +510,9 @@ namespace ModdersToolkit.Tools.Spawns
 						if (Main.player[j].ZoneDungeon && (!Main.tileDungeon[(int)Main.tile[num, num2].type] || Main.tile[num, num2 - 1].wall == 0)) {
 							flag13 = false;
 						}
-						if (Main.tile[num, num2 - 1].liquid > 0 && Main.tile[num, num2 - 2].liquid > 0 && !Main.tile[num, num2 - 1].lava()) {
+						if (Main.tile[num, num2 - 1].LiquidAmount > 0 && Main.tile[num, num2 - 2].LiquidAmount > 0 && Main.tile[num, num2 - 1].LiquidType != LiquidID.Lava) {
 							//patch file: flag6
-							if (Main.tile[num, num2 - 1].honey()) {
+							if (Main.tile[num, num2 - 1].LiquidType == LiquidID.Honey) {
 								flag6 = true;
 							}
 							//patch file: flag5
@@ -1000,7 +1000,7 @@ namespace ModdersToolkit.Tools.Spawns
 							if (!NPC.savedAngler && !NPC.AnyNPCs(376)) {
 								int num58 = -1;
 								for (int num59 = num2 - 1; num59 > num2 - 50; num59--) {
-									if (Main.tile[num, num59].liquid == 0 && !WorldGen.SolidTile(num, num59) && !WorldGen.SolidTile(num, num59 + 1) && !WorldGen.SolidTile(num, num59 + 2)) {
+									if (Main.tile[num, num59].LiquidAmount == 0 && !WorldGen.SolidTile(num, num59) && !WorldGen.SolidTile(num, num59 + 1) && !WorldGen.SolidTile(num, num59 + 2)) {
 										num58 = num59 + 2;
 										break;
 									}
@@ -1057,7 +1057,7 @@ namespace ModdersToolkit.Tools.Spawns
 							else if ((double)num2 < Main.worldSurface && num2 > 50 && Main.rand.Next(3) != 0 && Main.dayTime) {
 								int num60 = -1;
 								for (int num61 = num2 - 1; num61 > num2 - 50; num61--) {
-									if (Main.tile[num, num61].liquid == 0 && !WorldGen.SolidTile(num, num61) && !WorldGen.SolidTile(num, num61 + 1) && !WorldGen.SolidTile(num, num61 + 2)) {
+									if (Main.tile[num, num61].LiquidAmount == 0 && !WorldGen.SolidTile(num, num61) && !WorldGen.SolidTile(num, num61 + 1) && !WorldGen.SolidTile(num, num61 + 2)) {
 										num60 = num61 + 2;
 										break;
 									}
@@ -1092,7 +1092,7 @@ namespace ModdersToolkit.Tools.Spawns
 								if ((double)num2 < Main.worldSurface && num2 > 50 && Main.rand.Next(3) != 0 && Main.dayTime) {
 									int num62 = -1;
 									for (int num63 = num2 - 1; num63 > num2 - 50; num63--) {
-										if (Main.tile[num, num63].liquid == 0 && !WorldGen.SolidTile(num, num63) && !WorldGen.SolidTile(num, num63 + 1) && !WorldGen.SolidTile(num, num63 + 2)) {
+										if (Main.tile[num, num63].LiquidAmount == 0 && !WorldGen.SolidTile(num, num63) && !WorldGen.SolidTile(num, num63 + 1) && !WorldGen.SolidTile(num, num63 + 2)) {
 											num62 = num63 + 2;
 											break;
 										}
