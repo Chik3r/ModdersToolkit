@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -26,6 +27,8 @@ namespace ModdersToolkit.REPL
 		public NewUITextBoxMultiLine codeTextBox;
 		public static string filterText = "";
 		private UserInterface userInterface;
+
+		private static readonly FieldInfo _uiListItemsField = typeof(UIList).GetField("_items", BindingFlags.NonPublic | BindingFlags.Instance);
 
 		public REPLUI(UserInterface userInterface) {
 			this.userInterface = userInterface;
@@ -185,7 +188,9 @@ namespace ModdersToolkit.REPL
 			Main.drawingPlayerChat = false;
 		}
 		public void UpAction() {
-			foreach (var item in replOutput._items) {
+			List<UIElement> items = (List<UIElement>)_uiListItemsField.GetValue(replOutput);
+
+			foreach (var item in items) {
 				if (item is UICodeEntry codeEntry && codeEntry.codeType == CodeType.Input) {
 					string text = codeEntry.Text;
 					if (text.StartsWith(codeArrow)) {
