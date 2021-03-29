@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ModdersToolkit.Tools.REPL;
 using ModdersToolkit.UIElements;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Graphics;
 using Terraria.ModLoader;
@@ -109,7 +111,7 @@ namespace ModdersToolkit.REPL
 			openText.Top.Set(-26, 1f);
 			openText.Left.Set(26 * 3, 0f);
 			keyboardPanel.Append(openText);
-
+			
 			UIImageButton runText = new UIHoverImageButton(Main.Assets.Request<Texture2D>("Images/UI/ButtonPlay"), "Execute External Code");
 			runText.OnClick += RunTextButton_OnClick;
 			runText.Top.Set(-26, 1f);

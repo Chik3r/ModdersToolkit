@@ -112,7 +112,7 @@ namespace ModdersToolkit.Tools.PlayerLayer
 		//}
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo) {
-			var layers = PlayerDrawLayerHooks.Layers;
+			var layers = PlayerDrawLayerLoader.Layers;
 			//var layers = PlayerDrawLayerHooks.GetDrawLayers(drawInfo);
 
 			PlayerLayerTool.playerLayerUI.InformLayers(layers.ToList());

@@ -130,7 +130,7 @@ namespace ModdersToolkit.Tools.Dusts
 			}
 			else {
 				frames = 1;
-				var dust = ModDust.GetDust(type);
+				var dust = ModContent.GetModDust(type);
 				texture = dust.Texture2D;
 				height = texture.Height / frames;
 				width = texture.Width;

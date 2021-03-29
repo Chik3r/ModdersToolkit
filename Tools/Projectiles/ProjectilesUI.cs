@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ModdersToolkit.UIElements;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -308,6 +309,7 @@ namespace ModdersToolkit.Tools.Projectiles
 		public override void Click(UIMouseEvent evt) {
 			Main.NewText("Spawn projectile " + type);
 			Projectile p = Main.projectile[Projectile.NewProjectile(
+				new ProjectileToolSpawnSource(),
 				Main.LocalPlayer.Center + new Vector2(0, -40),
 				new Vector2(Main.LocalPlayer.direction * ProjectilesUI.speedXDataProperty.Data, ProjectilesUI.speedYDataProperty.Data),
 				type,
