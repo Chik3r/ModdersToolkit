@@ -51,13 +51,13 @@ namespace ModdersToolkit
 			if (!Main.dedServ) {
 				tools.ForEach(tool => tool.ClientInitialize());
 
-				UIElements.UICheckbox.checkboxTexture = ModContent.Request<Texture2D>("ModdersToolkit/UIElements/checkBox");
-				UIElements.UICheckbox.checkmarkTexture = ModContent.Request<Texture2D>("ModdersToolkit/UIElements/checkMark");
-				UIElements.UICheckbox2.checkboxTexture = ModContent.Request<Texture2D>("ModdersToolkit/UIElements/checkBox");
-				UIElements.UICheckbox2.checkmarkTexture = ModContent.Request<Texture2D>("ModdersToolkit/UIElements/checkMark");
-				UIElements.UITriStateCheckbox.checkboxTexture = ModContent.Request<Texture2D>("ModdersToolkit/UIElements/checkBox");
-				UIElements.UITriStateCheckbox.checkmarkTexture = ModContent.Request<Texture2D>("ModdersToolkit/UIElements/checkMark");
-				UIElements.UITriStateCheckbox.checkXTexture = ModContent.Request<Texture2D>("ModdersToolkit/UIElements/checkX");
+				UIElements.UICheckbox.checkboxTexture = ModdersToolkit.Instance.GetTexture("UIElements/checkBox");
+				UIElements.UICheckbox.checkmarkTexture = ModdersToolkit.Instance.GetTexture("UIElements/checkMark");
+				UIElements.UICheckbox2.checkboxTexture = ModdersToolkit.Instance.GetTexture("UIElements/checkBox");
+				UIElements.UICheckbox2.checkmarkTexture = ModdersToolkit.Instance.GetTexture("UIElements/checkMark");
+				UIElements.UITriStateCheckbox.checkboxTexture = ModdersToolkit.Instance.GetTexture("UIElements/checkBox");
+				UIElements.UITriStateCheckbox.checkmarkTexture = ModdersToolkit.Instance.GetTexture("UIElements/checkMark");
+				UIElements.UITriStateCheckbox.checkXTexture = ModdersToolkit.Instance.GetTexture("UIElements/checkX");
 			}
 		}
 

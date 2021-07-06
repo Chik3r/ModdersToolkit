@@ -640,7 +640,7 @@ technique Technique1
 			if (selectedMod != null && Directory.Exists(Path.Combine(ModSourcePath, selectedMod.Name))) {
 
 				//FieldInfo effectsField = typeof(Mod).GetField("effects", BindingFlags.Instance | BindingFlags.NonPublic);
-				IEnumerable<Asset<Effect>> effects = selectedMod.Assets.GetLoadedAssets().OfType<Asset<Effect>>();
+				IEnumerable<Asset<Effect>> effects = selectedMod.Assets.EnumerateLoadedAssets<Effect>();
 				//var loadedEffects = (Dictionary<string, Effect>)effectsField.GetValue(selectedMod);
 				var loadedEffects = effects.ToDictionary(x => x.Name.Split('.')[0], x => x.Value);
 
