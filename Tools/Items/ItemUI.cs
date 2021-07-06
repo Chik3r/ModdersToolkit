@@ -125,7 +125,7 @@ namespace ModdersToolkit.Tools.Items
 			//data.DataSetter = (value) => Main.LocalPlayer.HeldItem.height = value;
 			//uiRanges.Add(new UIRange<int>(data));
 
-			var data = new UIIntRangedDataValue("UseStyle:", 0, 0, 6);
+			var data = new UIIntRangedDataValue("UseStyle:", 0, 0, 14);
 			data.DataGetter = () => Main.LocalPlayer.HeldItem.useStyle;
 			data.DataSetter = (value) => Main.LocalPlayer.HeldItem.useStyle = value;
 			uiRanges.Add(new UIRange<int>(data));

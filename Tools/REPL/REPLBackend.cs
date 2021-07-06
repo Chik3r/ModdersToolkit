@@ -21,6 +21,9 @@ namespace ModdersToolkit.REPL
 		}
 
 		public void Reset() {
+			// TODO: fix repl when tml fixes dll loading
+			return;
+
 			if (Main.netMode == 2) {
 				compilerContext = new CompilerContext(new CompilerSettings(), new ConsoleReportPrinter(new ConsoleTextWriter()));
 			}

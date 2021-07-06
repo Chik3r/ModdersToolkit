@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -132,7 +133,7 @@ namespace ModdersToolkit.Tools.Textures
 			//exportImageButton.Left.Set(0, 0f);
 			//mainPanel.Append(exportImageButton);
 
-			UIHoverImageButton editImageButton = new UIHoverImageButton(ModdersToolkit.Instance.GetTexture("UIElements/eyedropper"), "Open Exported Image in Default Editor");
+			UIHoverImageButton editImageButton = new UIHoverImageButton(ModContent.Request<Texture2D>("ModdersToolkit/UIElements/eyedropper"), "Open Exported Image in Default Editor");
 			editImageButton.OnClick += EditImageButton_OnClick;
 			editImageButton.Top.Set(top + 5, 0f);
 			editImageButton.Left.Set(0, 0f);
@@ -318,7 +319,7 @@ namespace ModdersToolkit.Tools.Textures
 			if (selectedMod != null) {
 				textureList.Clear();
 
-				IEnumerable<Asset<Texture2D>> textures = selectedMod.Assets.EnumerateLoadedAssets<Texture2D>();
+				IEnumerable<Asset<Texture2D>> textures = selectedMod.Assets.GetLoadedAssets().OfType<Asset<Texture2D>>();
 				foreach (var textureEntry in textures) {
 					if (searchFilter.Text.Length > 0) {
 						if (textureEntry.Name.ToLower().IndexOf(searchFilter.Text, StringComparison.OrdinalIgnoreCase) == -1)

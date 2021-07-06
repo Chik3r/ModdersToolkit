@@ -35,9 +35,9 @@ namespace ModdersToolkit.Tools.Backgrounds
 		}
 	}
 
-	internal class BackgroundsToolGlobalBgStyle : GlobalBgStyle
+	internal class BackgroundsToolGlobalBgStyle : GlobalBackgroundStyle
 	{
-		public override void ChooseSurfaceBgStyle(ref int style) {
+		public override void ChooseSurfaceBackgroundStyle(ref int style) {
 			if (Main.gameMenu)
 				return;
 
@@ -50,7 +50,7 @@ namespace ModdersToolkit.Tools.Backgrounds
 				Main.instantBGTransitionCounter = 10;
 		}
 
-		public override void ChooseUgBgStyle(ref int style) {
+		public override void ChooseUndergroundBackgroundStyle(ref int style) {
 			if (Main.gameMenu)
 				return;
 
@@ -63,7 +63,7 @@ namespace ModdersToolkit.Tools.Backgrounds
 				Main.instantBGTransitionCounter = 10;
 		}
 
-		public override void FillUgTextureArray(int style, int[] textureSlots) {
+		public override void FillUndergroundTextureArray(int style, int[] textureSlots) {
 			if (Main.gameMenu)
 				return;
 			for (int i = 0; i < 7; i++) {

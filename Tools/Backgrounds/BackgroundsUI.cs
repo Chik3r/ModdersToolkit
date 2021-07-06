@@ -47,9 +47,11 @@ namespace ModdersToolkit.Tools.Backgrounds
 			text.Left.Set(12f, 0f);
 			mainPanel.Append(text);
 
-			int nextSurfaceBgStyle = (int)typeof(SurfaceBgStyleLoader).GetField("nextSurfaceBgStyle", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
-			int nextUndergroundBgStyle = (int)typeof(UgBgStyleLoader).GetField("nextUgBgStyle", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
-			int nextBackground = (int)typeof(BackgroundTextureLoader).GetField("nextBackground", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+			PropertyInfo countProperty = typeof(Loader).GetProperty("TotalCount", BindingFlags.Instance | BindingFlags.NonPublic);
+
+			int nextSurfaceBgStyle = (int)countProperty.GetValue(LoaderManager.Get<SurfaceBackgroundStylesLoader>());
+			int nextUndergroundBgStyle = (int)countProperty.GetValue(LoaderManager.Get<UndergroundBackgroundStylesLoader>());
+			int nextBackground = (int)countProperty.GetValue(LoaderManager.Get<BackgroundTextureLoader>());
 
 			int top = 12;
 

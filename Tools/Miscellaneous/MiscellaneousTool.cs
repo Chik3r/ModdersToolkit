@@ -108,12 +108,12 @@ namespace ModdersToolkit.Tools.Miscellaneous
 
 	internal class NPCInfoGlobalNPC : GlobalNPC
 	{
-		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor) {
+		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
 			if (MiscellaneousTool.showNPCInfo) {
 				if (npc.realLife == -1 || npc.realLife == npc.whoAmI) {
 					var font = FontAssets.MouseText.Value;
 					//Main.NewText("Drawing: " + npc.TypeName);
-					Rectangle infoRectangle = new Rectangle((int)(npc.BottomRight.X - Main.screenPosition.X), (int)(npc.BottomRight.Y - Main.screenPosition.Y), 300, 160);
+					Rectangle infoRectangle = new Rectangle((int)(npc.BottomRight.X - screenPos.X), (int)(npc.BottomRight.Y - screenPos.Y), 300, 160);
 					spriteBatch.Draw(TextureAssets.MagicPixel.Value, infoRectangle, Color.NavajoWhite);
 
 					/*

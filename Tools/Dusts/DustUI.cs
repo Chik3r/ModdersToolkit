@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Graphics.Shaders;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ModdersToolkit.Tools.Dusts
@@ -126,7 +127,7 @@ namespace ModdersToolkit.Tools.Dusts
 			mainPanel.Append(uiRange);
 
 			top += 30;
-			UIImageButton b = new UIImageButton(ModdersToolkit.Instance.GetTexture("UIElements/searchIcon"));
+			UIImageButton b = new UIImageButton(ModContent.Request<Texture2D>("ModdersToolkit/UIElements/searchIcon"));
 			b.OnClick += (s, e) => { ShowDustChooser = !ShowDustChooser; Recalculate(); };
 			b.Top.Set(top, 0f);
 			mainPanel.Append(b);
@@ -214,7 +215,7 @@ namespace ModdersToolkit.Tools.Dusts
 			mainPanel.Append(g);
 			NewDustRadioButton.Selected = true;
 
-			UIHoverImageButton copyCodeButton = new UIHoverImageButton(ModdersToolkit.Instance.GetTexture("UIElements/CopyCodeButton"), "Copy code to clipboard");
+			UIHoverImageButton copyCodeButton = new UIHoverImageButton(ModContent.Request<Texture2D>("ModdersToolkit/UIElements/CopyCodeButton"), "Copy code to clipboard");
 			copyCodeButton.OnClick += CopyCodeButton_OnClick;
 			copyCodeButton.Top.Set(-20, 1f);
 			copyCodeButton.Left.Set(-20, 1f);

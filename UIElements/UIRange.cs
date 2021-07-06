@@ -5,6 +5,7 @@ using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ModdersToolkit.UIElements
@@ -102,7 +103,7 @@ namespace ModdersToolkit.UIElements
 				//slider.HAlign = .25f;
 				Append(slider);
 
-				minus = new UIImageButton(ModdersToolkit.Instance.GetTexture("UIElements/ButtonMinus"));
+				minus = new UIImageButton(ModContent.Request<Texture2D>("ModdersToolkit/UIElements/ButtonMinus"));
 				minus.OnClick += Minus_OnClick;
 				//minus.Height.Set(16, 0f);
 				minus.Width.Set(0, .125f);
@@ -112,7 +113,7 @@ namespace ModdersToolkit.UIElements
 				//minus.HAlign = .625f;
 				Append(minus);
 
-				plus = new UIImageButton(ModdersToolkit.Instance.GetTexture("UIElements/ButtonPlus"));
+				plus = new UIImageButton(ModContent.Request<Texture2D>("ModdersToolkit/UIElements/ButtonPlus"));
 				plus.OnClick += Plus_OnClick;
 				//plus.Height.Set(16, 0f);
 				plus.Width.Set(0, .125f);
